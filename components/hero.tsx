@@ -46,24 +46,24 @@ export function Hero({
             </div>
             <p className="text-base leading-relaxed text-gray-700">{description}</p>
             <div className="flex flex-wrap gap-3">
-              <Button asChild size="default" className="gap-2">
+              <Button asChild size="lg" className="gap-2 bg-blue-600 text-white hover:bg-blue-700 shadow-lg">
                 <a href={`tel:${site.phone}`}>
-                  <Phone className="h-4 w-4" />
-                  اتصل الآن
+                  <Phone className="h-5 w-5" />
+                  اتصل الآن: {site.phoneDisplay}
                 </a>
               </Button>
-              <Button asChild size="default" variant="secondary" className="gap-2">
+              <Button asChild size="lg" className="gap-2 bg-green-600 text-white hover:bg-green-700 shadow-lg">
                 <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="h-4 w-4" />
+                  <MessageCircle className="h-5 w-5" />
                   واتساب
                 </a>
               </Button>
+              {ctaText && ctaLink && (
+                <Button asChild size="lg" className="gap-2 bg-primary text-white hover:bg-primary/90 shadow-lg">
+                  <Link href={ctaLink}>{ctaText}</Link>
+                </Button>
+              )}
             </div>
-            {ctaText && ctaLink && (
-              <Button asChild variant="outline" size="default">
-                <Link href={ctaLink}>{ctaText}</Link>
-              </Button>
-            )}
           </div>
           <div className="relative h-[250px] md:h-[350px] lg:h-[400px] order-1 lg:order-2">
             <Image

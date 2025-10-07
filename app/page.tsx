@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Hero } from "@/components/hero";
+import { HomeHero } from "@/components/home-hero";
 import { ServiceCard } from "@/components/service-card";
 import { ProcessSteps } from "@/components/process-steps";
 import { FAQ } from "@/components/faq";
@@ -96,14 +96,7 @@ export default function HomePage() {
     <>
       <SchemaInjector schemas={schemas} />
 
-      <Hero
-        title="شركة تنظيف بجدة — خدمات تنظيف احترافية متكاملة"
-        subtitle={site.brand}
-        description="نقدم خدمات تنظيف شاملة للمنازل والفلل والشركات في جدة. تنظيف عميق، تنظيف مفروشات، تعقيم، جلي رخام، وأكثر. فريق محترف وأسعار منافسة."
-        image="cleaning services Jeddah.jpg"
-        imageAlt="شركة تنظيف بجدة - شركة المثالي"
-        context={{ page: "الرئيسية" }}
-      />
+      <HomeHero />
 
       {/* Introduction Section */}
       <section className="bg-white py-16">
