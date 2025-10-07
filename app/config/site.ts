@@ -2,13 +2,16 @@ export const site = {
   brand: "شركة المثالي",
   domain: "almesaly.com",
   url: "https://almesaly.com",
-  phone: "+966500000000", // TODO: Replace with actual phone
-  whatsapp: "https://wa.me/966500000000", // TODO: Replace with actual WhatsApp
+  phone: "+966569506218",
+  phoneDisplay: "0569506218",
+  whatsapp: "https://wa.me/966569506218",
+  mapPin: "https://maps.app.goo.gl/wTQCweQYxgm8M8UJ7",
   address: {
-    full: "جدة، المملكة العربية السعودية", // TODO: Replace with full address
-    streetAddress: "شارع TBD", // TODO: Replace
+    full: "شارع عبدالرحمن الداخل الفرعي، النهضة، جدة 23523",
+    streetAddress: "شارع عبدالرحمن الداخل الفرعي",
+    neighborhood: "النهضة",
     addressLocality: "جدة",
-    postalCode: "21432", // TODO: Replace with actual postal code
+    postalCode: "23523",
     addressCountry: "SA",
   },
   hours: [

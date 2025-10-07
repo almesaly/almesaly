@@ -97,6 +97,15 @@ export default function ContactPage() {
                       <h3 className="mb-1 text-lg font-bold text-gray-900">العنوان</h3>
                       <p className="text-gray-700">{site.address.full}</p>
                       <p className="mt-1 text-sm text-gray-600">جدة، المملكة العربية السعودية</p>
+                      <a
+                        href={site.mapPin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                      >
+                        <MapPin className="h-4 w-4" />
+                        افتح الموقع على الخريطة
+                      </a>
                     </div>
                   </div>
 
@@ -148,21 +157,31 @@ export default function ContactPage() {
               موقعنا على الخريطة
             </h2>
             <div className="overflow-hidden rounded-lg shadow-lg">
-              {/* Placeholder for Google Maps - replace with actual embed code */}
-              <div className="flex h-96 items-center justify-center bg-gray-200">
-                <div className="text-center">
-                  <MapPin className="mx-auto mb-4 h-12 w-12 text-gray-400" />
-                  <p className="text-gray-600">
-                    خريطة Google سيتم إضافتها هنا
-                    <br />
-                    (أضف رابط Google Maps Embed بعد الحصول على API Key)
-                  </p>
-                </div>
-              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3710.6243719461786!2d39.1564987!3d21.5648694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d0235dba7603%3A0x8e0b5f2e0b8e0b5f!2z2LTYp9ix2Lkg2LnYqNiv2KfZhNix2K3ZhdmGINin2YTYr9in2K7ZhCDYp9mE2YHYsdmD2YrYjCDYp9mE2YbZh9i22KnYjCDYrNiv2Kkg23523!5e0!3m2!1sar!2ssa!4v1696671234567!5m2!1sar!2ssa"
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="موقع شركة المثالي للتنظيف في جدة"
+              ></iframe>
             </div>
-            <p className="mt-6 text-center text-gray-600">
-              نخدم جميع أحياء جدة - فريقنا جاهز للوصول إليك أينما كنت في المدينة
-            </p>
+            <div className="mt-6 text-center">
+              <a
+                href={site.mapPin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-bold text-white transition-colors hover:bg-primary/90"
+              >
+                <MapPin className="h-5 w-5" />
+                افتح الموقع في خرائط Google
+              </a>
+              <p className="mt-4 text-gray-600">
+                نخدم جميع أحياء جدة - فريقنا جاهز للوصول إليك أينما كنت في المدينة
+              </p>
+            </div>
           </div>
         </div>
       </section>
