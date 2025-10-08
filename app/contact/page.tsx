@@ -1,11 +1,13 @@
 import { Metadata } from "next";
-import { Hero } from "@/components/hero";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ContactForm } from "@/components/contact-form";
 import { SchemaInjector } from "@/components/schema-injector";
+import { Button } from "@/components/ui/button";
 import { site } from "@/app/config/site";
 import { generateLocalBusinessSchema } from "@/lib/schema";
-import { Phone, MessageCircle, MapPin, Clock } from "lucide-react";
+import { generateWhatsAppLink } from "@/lib/utils";
+import { Phone, MessageCircle, MapPin, Clock, Mail, Headphones, Zap } from "lucide-react";
 import { formatPhoneNumber } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -21,20 +23,75 @@ const breadcrumbs = [{ name: "تواصل معنا", url: "/contact" }];
 
 export default function ContactPage() {
   const schemas = [generateLocalBusinessSchema()];
+  const whatsappLink = generateWhatsAppLink(site.whatsapp, { page: "تواصل معنا" });
 
   return (
     <>
       <SchemaInjector schemas={schemas} />
       <Breadcrumbs items={breadcrumbs} />
 
-      <Hero
-        title="تواصل معنا - نحن هنا لخدمتك"
-        subtitle="تواصل معنا"
-        description="لديك استفسار؟ تريد عرض سعر؟ أو تحتاج استشارة؟ تواصل معنا الآن بالطريقة التي تناسبك - هاتف، واتساب، أو املأ النموذج وسنرد عليك فوراً."
-        image="best cleaning service.jpg"
-        imageAlt="تواصل مع شركة المثالي - جدة"
-        context={{ page: "تواصل معنا" }}
-      />
+      {/* Enhanced Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-teal-600 via-cyan-600 to-blue-600 py-16 md:py-24">
+        {/* Circular Waves Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full border-4 border-white"></div>
+          <div className="absolute left-1/4 top-1/4 h-80 w-80 rounded-full border-4 border-white"></div>
+          <div className="absolute left-1/4 top-1/4 h-64 w-64 rounded-full border-4 border-white"></div>
+          <div className="absolute right-1/4 bottom-1/4 h-72 w-72 rounded-full border-4 border-white"></div>
+          <div className="absolute right-1/4 bottom-1/4 h-56 w-56 rounded-full border-4 border-white"></div>
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="mx-auto max-w-5xl text-center text-white">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-6 py-2 backdrop-blur-sm">
+              <Headphones className="h-5 w-5" />
+              <span className="font-semibold">متاحون 24/7 - رد خلال 30 دقيقة</span>
+            </div>
+
+            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              تواصل معنا<br />نحن هنا لخدمتك
+            </h1>
+
+            <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed opacity-95 md:text-xl">
+              لديك استفسار؟ تحتاج عرض سعر؟ أو تبحث عن استشارة مجانية؟ تواصل معنا بالطريقة الأسهل لك - نضمن رداً سريعاً واحترافياً
+            </p>
+
+            <div className="mb-12 flex flex-wrap justify-center gap-4">
+              <Button asChild size="lg" className="gap-2 bg-white text-teal-600 hover:bg-gray-100 shadow-2xl animate-pulse">
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="h-5 w-5" />
+                  اتصل الآن: {site.phoneDisplay}
+                </a>
+              </Button>
+              <Button asChild size="lg" className="gap-2 bg-green-500 text-white hover:bg-green-600 shadow-2xl">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5" />
+                  واتساب مباشر
+                </a>
+              </Button>
+            </div>
+
+            {/* Contact Methods Grid */}
+            <div className="grid gap-6 sm:grid-cols-3">
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/20">
+                <Phone className="mx-auto mb-3 h-10 w-10 text-yellow-300" />
+                <h3 className="mb-2 text-lg font-bold">مكالمة هاتفية</h3>
+                <p className="text-sm opacity-90">تواصل فوري ومباشر</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/20">
+                <MessageCircle className="mx-auto mb-3 h-10 w-10 text-green-300" />
+                <h3 className="mb-2 text-lg font-bold">واتساب</h3>
+                <p className="text-sm opacity-90">الأسرع للحصول على عرض سعر</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/20">
+                <Mail className="mx-auto mb-3 h-10 w-10 text-blue-300" />
+                <h3 className="mb-2 text-lg font-bold">نموذج الطلب</h3>
+                <p className="text-sm opacity-90">رد خلال 30 دقيقة</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-white py-16">
         <div className="container mx-auto px-4">
