@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, FileText } from "lucide-react";
 import { site } from "@/app/config/site";
-import { formatPhoneNumber, generateWhatsAppLink } from "@/lib/utils";
+import { generateWhatsAppLink } from "@/lib/utils";
 
 interface CTASectionProps {
   title?: string;
@@ -31,21 +31,20 @@ export function CTASection({
           <Button
             asChild
             size="lg"
-            variant="secondary"
-            className="gap-2 bg-white text-primary hover:bg-gray-100"
+            className="gap-2 bg-white text-blue-600 hover:bg-gray-100 shadow-xl"
           >
             <a href={`tel:${site.phone}`}>
               <Phone className="h-5 w-5" />
-              اتصل الآن: {formatPhoneNumber(site.phone)}
+              اتصل الآن: {site.phoneDisplay}
             </a>
           </Button>
-          <Button asChild size="lg" variant="outline" className="gap-2 border-white text-white hover:bg-white/10">
+          <Button asChild size="lg" className="gap-2 bg-green-600 text-white hover:bg-green-700 shadow-xl">
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="h-5 w-5" />
               واتساب
             </a>
           </Button>
-          <Button asChild size="lg" variant="outline" className="gap-2 border-white text-white hover:bg-white/10">
+          <Button asChild size="lg" className="gap-2 bg-blue-500 text-white hover:bg-blue-600 shadow-xl">
             <Link href="/contact">
               <FileText className="h-5 w-5" />
               طلب عرض سعر
