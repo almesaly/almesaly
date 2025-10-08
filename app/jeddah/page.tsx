@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Hero } from "@/components/hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CTASection } from "@/components/cta-section";
+import { Button } from "@/components/ui/button";
 import { site, areas } from "@/app/config/site";
-import { MapPin } from "lucide-react";
+import { generateWhatsAppLink } from "@/lib/utils";
+import { MapPin, Phone, MessageCircle, Map, Navigation, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "خدماتنا في جميع أحياء جدة",
@@ -21,19 +22,73 @@ export default function JeddahAreasPage() {
   const coastalAreas = areas.filter((a) => a.type === "ساحلي");
   const residentialAreas = areas.filter((a) => a.type === "سكني");
   const commercialAreas = areas.filter((a) => a.type === "تجاري");
+  const whatsappLink = generateWhatsAppLink(site.whatsapp, { page: "جدة" });
 
   return (
     <>
       <Breadcrumbs items={breadcrumbs} />
 
-      <Hero
-        title="نخدم جميع أحياء جدة - خدمة سريعة وموثوقة"
-        subtitle="خدماتنا في جدة"
-        description="أينما كنت في جدة، فريقنا جاهز للوصول إليك بسرعة. نقدم خدمات تنظيف احترافية في جميع الأحياء بنفس الجودة والأسعار العادلة."
-        image="cleaning services Jeddah.jpg"
-        imageAlt="خدمات تنظيف في جميع أحياء جدة - شركة المثالي"
-        context={{ page: "جدة" }}
-      />
+      {/* Enhanced Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-blue-600 to-sky-500 py-16 md:py-24">
+        {/* Map-like Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 L50 25 L100 0 L100 100 L50 75 L0 100 Z' fill='%23ffffff' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E")`,
+            backgroundSize: '80px 80px',
+          }} />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="mx-auto max-w-5xl text-center text-white">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-6 py-2 backdrop-blur-sm">
+              <Map className="h-5 w-5" />
+              <span className="font-semibold">21 حي في جدة نخدمه</span>
+            </div>
+
+            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              تغطية شاملة<br />لجميع أحياء جدة
+            </h1>
+
+            <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed opacity-95 md:text-xl">
+              من الشمال إلى الجنوب، من الساحل إلى الداخل - نصل إليك أينما كنت في جدة. نفس الجودة، نفس الأسعار، في كل حي
+            </p>
+
+            <div className="mb-12 flex flex-wrap justify-center gap-4">
+              <Button asChild size="lg" className="gap-2 bg-white text-indigo-600 hover:bg-gray-100 shadow-xl">
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="h-5 w-5" />
+                  اتصل: {site.phoneDisplay}
+                </a>
+              </Button>
+              <Button asChild size="lg" className="gap-2 bg-green-600 text-white hover:bg-green-700 shadow-xl">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5" />
+                  واتساب
+                </a>
+              </Button>
+            </div>
+
+            {/* Coverage Benefits */}
+            <div className="grid gap-6 sm:grid-cols-3">
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                <Navigation className="mx-auto mb-3 h-10 w-10 text-yellow-300" />
+                <h3 className="mb-2 text-lg font-bold">وصول سريع</h3>
+                <p className="text-sm opacity-90">نصل خلال 30-60 دقيقة</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                <CheckCircle className="mx-auto mb-3 h-10 w-10 text-green-300" />
+                <h3 className="mb-2 text-lg font-bold">سعر واحد</h3>
+                <p className="text-sm opacity-90">بدون رسوم إضافية للمناطق</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                <MapPin className="mx-auto mb-3 h-10 w-10 text-blue-300" />
+                <h3 className="mb-2 text-lg font-bold">21 منطقة</h3>
+                <p className="text-sm opacity-90">تغطية كاملة لجدة</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-white py-16">
         <div className="container mx-auto px-4">

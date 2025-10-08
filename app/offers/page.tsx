@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Hero } from "@/components/hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FAQ } from "@/components/faq";
 import { CTASection } from "@/components/cta-section";
 import { SchemaInjector } from "@/components/schema-injector";
 import { site } from "@/app/config/site";
 import { generateFAQSchema } from "@/lib/schema";
-import { CheckCircle, Package, Sparkles, TrendingDown } from "lucide-react";
+import { generateWhatsAppLink } from "@/lib/utils";
+import { CheckCircle, Package, Sparkles, TrendingDown, Phone, MessageCircle, Tag, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -125,20 +125,63 @@ const seasonalOffers = [
 
 export default function OffersPage() {
   const schemas = [generateFAQSchema(faqs)];
+  const whatsappLink = generateWhatsAppLink(site.whatsapp, { page: "العروض والباقات" });
 
   return (
     <>
       <SchemaInjector schemas={schemas} />
       <Breadcrumbs items={breadcrumbs} />
 
-      <Hero
-        title="عروض وباقات تنظيف مميزة في جدة"
-        subtitle="عروضنا وباقاتنا"
-        description="اختر الباقة المناسبة لك من بين مجموعة واسعة من العروض والخيارات. جودة عالية بأسعار تنافسية."
-        image="best cleaning service.jpg"
-        imageAlt="عروض تنظيف في جدة - شركة المثالي"
-        context={{ page: "العروض والباقات" }}
-      />
+      {/* Enhanced Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 py-16 md:py-24">
+        {/* Animated Circles */}
+        <div className="absolute left-0 top-0 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 h-96 w-96 translate-x-1/2 translate-y-1/2 rounded-full bg-white/5 blur-3xl"></div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="mx-auto max-w-5xl text-center text-white">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-yellow-400 px-6 py-2 text-gray-900 font-bold">
+              <Tag className="h-5 w-5" />
+              <span>عروض حصرية - خصومات تصل إلى 25%</span>
+            </div>
+
+            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              عروض وباقات تنظيف<br />لا تُفوّت!
+            </h1>
+
+            <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed opacity-95 md:text-xl">
+              اختر من باقاتنا المميزة واستفد من عروضنا الحصرية. جودة عالية، أسعار منافسة، وقيمة استثنائية لكل ريال تدفعه
+            </p>
+
+            <div className="mb-12 flex flex-wrap justify-center gap-4">
+              <Button asChild size="lg" className="gap-2 bg-white text-orange-600 hover:bg-gray-100 shadow-xl">
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="h-5 w-5" />
+                  احجز عرضك: {site.phoneDisplay}
+                </a>
+              </Button>
+              <Button asChild size="lg" className="gap-2 bg-green-600 text-white hover:bg-green-700 shadow-xl">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5" />
+                  واتساب
+                </a>
+              </Button>
+            </div>
+
+            {/* Special Offers Badges */}
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="rounded-full border-2 border-white bg-white/10 px-6 py-3 backdrop-blur-sm">
+                <Gift className="inline-block h-5 w-5 ml-2" />
+                <span className="font-bold">عرض خاص للعملاء الجدد</span>
+              </div>
+              <div className="rounded-full border-2 border-white bg-white/10 px-6 py-3 backdrop-blur-sm">
+                <TrendingDown className="inline-block h-5 w-5 ml-2" />
+                <span className="font-bold">خصم 20% على العقود السنوية</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-white py-16">
         <div className="container mx-auto px-4">

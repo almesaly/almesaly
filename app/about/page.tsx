@@ -1,9 +1,11 @@
 import { Metadata } from "next";
-import { Hero } from "@/components/hero";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CTASection } from "@/components/cta-section";
+import { Button } from "@/components/ui/button";
 import { site } from "@/app/config/site";
-import { Shield, Users, Award, Clock, Heart, Sparkles } from "lucide-react";
+import { generateWhatsAppLink } from "@/lib/utils";
+import { Shield, Users, Award, Clock, Heart, Sparkles, Phone, MessageCircle, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "من نحن - شركة المثالي للتنظيف في جدة",
@@ -50,18 +52,69 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const whatsappLink = generateWhatsAppLink(site.whatsapp, { page: "من نحن" });
+
   return (
     <>
       <Breadcrumbs items={breadcrumbs} />
 
-      <Hero
-        title="من نحن - شركة المثالي للتنظيف في جدة"
-        subtitle="عن الشركة"
-        description="شركة رائدة في مجال خدمات التنظيف الاحترافية في جدة. نقدم خدمات متنوعة وشاملة بأعلى معايير الجودة والاحترافية."
-        image="trusted cleaning company.jpg"
-        imageAlt="شركة المثالي للتنظيف في جدة"
-        context={{ page: "من نحن" }}
-      />
+      {/* Enhanced Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 py-16 md:py-24">
+        {/* Wave Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#ffffff" fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+          </svg>
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="mx-auto max-w-5xl text-center text-white">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-6 py-2 backdrop-blur-sm">
+              <Award className="h-5 w-5" />
+              <span className="font-semibold">أكثر من 10 سنوات من التميز</span>
+            </div>
+
+            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              شركة المثالي للتنظيف<br />شريككم الموثوق في جدة
+            </h1>
+
+            <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed opacity-95 md:text-xl">
+              رحلة من التميز بدأت منذ عام 2014 - خدمنا آلاف العملاء في جدة بأعلى معايير الجودة والاحترافية. نفخر بثقتكم ونسعى دائماً لتجاوز توقعاتكم
+            </p>
+
+            <div className="mb-12 flex flex-wrap justify-center gap-4">
+              <Button asChild size="lg" className="gap-2 bg-white text-emerald-600 hover:bg-gray-100 shadow-xl">
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="h-5 w-5" />
+                  تواصل معنا: {site.phoneDisplay}
+                </a>
+              </Button>
+              <Button asChild size="lg" className="gap-2 border-2 border-white bg-transparent text-white hover:bg-white/10 shadow-xl">
+                <Link href="/services">
+                  <Sparkles className="h-5 w-5" />
+                  اكتشف خدماتنا
+                </Link>
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid gap-8 sm:grid-cols-3">
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                <div className="mb-2 text-4xl font-bold">+10</div>
+                <p className="text-sm opacity-90">سنوات من الخبرة</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                <div className="mb-2 text-4xl font-bold">+5000</div>
+                <p className="text-sm opacity-90">عميل راضٍ</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                <div className="mb-2 text-4xl font-bold">+50</div>
+                <p className="text-sm opacity-90">موظف محترف</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-white py-16">
         <div className="container mx-auto px-4">

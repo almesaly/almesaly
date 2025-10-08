@@ -1,9 +1,13 @@
 import { Metadata } from "next";
-import { Hero } from "@/components/hero";
+import Image from "next/image";
+import Link from "next/link";
 import { ServiceCard } from "@/components/service-card";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CTASection } from "@/components/cta-section";
+import { Button } from "@/components/ui/button";
 import { site, services } from "@/app/config/site";
+import { generateWhatsAppLink } from "@/lib/utils";
+import { Phone, MessageCircle, Home, Building2, Sparkles, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "خدماتنا - خدمات تنظيف شاملة في جدة",
@@ -17,18 +21,77 @@ export const metadata: Metadata = {
 const breadcrumbs = [{ name: "الخدمات", url: "/services" }];
 
 export default function ServicesPage() {
+  const whatsappLink = generateWhatsAppLink(site.whatsapp, { page: "الخدمات" });
+
   return (
     <>
       <Breadcrumbs items={breadcrumbs} />
 
-      <Hero
-        title="خدمات تنظيف شاملة ومتنوعة في جدة"
-        subtitle="خدماتنا"
-        description="نقدم مجموعة واسعة من خدمات التنظيف الاحترافية لتلبية جميع احتياجاتك - من تنظيف المنازل والفلل إلى المفروشات والتعقيم والخدمات المتخصصة."
-        image="cleaning services Jeddah.jpg"
-        imageAlt="خدمات تنظيف في جدة - شركة المثالي"
-        context={{ page: "الخدمات" }}
-      />
+      {/* Enhanced Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-500 to-primary py-16 md:py-24">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="mx-auto max-w-5xl text-center text-white">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-6 py-2 backdrop-blur-sm">
+              <Sparkles className="h-5 w-5" />
+              <span className="font-semibold">+16 خدمة متخصصة</span>
+            </div>
+
+            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              خدمات تنظيف شاملة<br />لكل احتياجاتك في جدة
+            </h1>
+
+            <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed opacity-95 md:text-xl">
+              من تنظيف المنازل والفلل إلى المفروشات والتعقيم والخدمات المتخصصة - نقدم حلول تنظيف احترافية تناسب جميع المتطلبات بأعلى معايير الجودة
+            </p>
+
+            <div className="mb-12 flex flex-wrap justify-center gap-4">
+              <Button asChild size="lg" className="gap-2 bg-white text-blue-600 hover:bg-gray-100 shadow-xl">
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="h-5 w-5" />
+                  اتصل الآن: {site.phoneDisplay}
+                </a>
+              </Button>
+              <Button asChild size="lg" className="gap-2 bg-green-600 text-white hover:bg-green-700 shadow-xl">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5" />
+                  واتساب
+                </a>
+              </Button>
+            </div>
+
+            {/* Service Categories Grid */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/20">
+                <Home className="mx-auto mb-3 h-10 w-10" />
+                <h3 className="mb-2 text-lg font-bold">خدمات المنازل</h3>
+                <p className="text-sm opacity-90">تنظيف منازل، فلل، وشقق</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/20">
+                <Building2 className="mx-auto mb-3 h-10 w-10" />
+                <h3 className="mb-2 text-lg font-bold">خدمات تجارية</h3>
+                <p className="text-sm opacity-90">مكاتب، شركات، ومنشآت</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/20">
+                <Sparkles className="mx-auto mb-3 h-10 w-10" />
+                <h3 className="mb-2 text-lg font-bold">خدمات متخصصة</h3>
+                <p className="text-sm opacity-90">مفروشات، رخام، خزانات</p>
+              </div>
+              <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/20">
+                <Shield className="mx-auto mb-3 h-10 w-10" />
+                <h3 className="mb-2 text-lg font-bold">التعقيم والتطهير</h3>
+                <p className="text-sm opacity-90">حماية صحية شاملة</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-white py-16">
         <div className="container mx-auto px-4">

@@ -1,11 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Hero } from "@/components/hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CTASection } from "@/components/cta-section";
+import { Button } from "@/components/ui/button";
 import { site } from "@/app/config/site";
-import { Calendar, User, ArrowLeft } from "lucide-react";
+import { generateWhatsAppLink } from "@/lib/utils";
+import { Calendar, User, ArrowLeft, BookOpen, Lightbulb, Phone, MessageCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "المدونة - نصائح ومقالات عن التنظيف",
@@ -166,20 +167,61 @@ const posts = [
 ];
 
 export default function BlogPage() {
+  const whatsappLink = generateWhatsAppLink(site.whatsapp, { page: "المدونة" });
+
   return (
     <>
       <Breadcrumbs items={breadcrumbs} />
 
-      <Hero
-        title="مدونة شركة المثالي - نصائح وإرشادات للتنظيف"
-        subtitle="المدونة"
-        description="اكتشف أحدث النصائح والإرشادات حول التنظيف والعناية بمنزلك من خبرائنا في شركة المثالي."
-        image="cleaning professionals.jpg"
-        imageAlt="مدونة شركة المثالي للتنظيف"
-        context={{ page: "المدونة" }}
-      />
+      {/* Enhanced Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 py-16 md:py-24">
+        {/* Decorative Elements */}
+        <div className="absolute left-10 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-white/10 blur-3xl"></div>
 
-      <section className="bg-white py-16">
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="mx-auto max-w-4xl text-center text-white">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-6 py-2 backdrop-blur-sm">
+              <BookOpen className="h-5 w-5" />
+              <span className="font-semibold">16 مقالة قيّمة</span>
+            </div>
+
+            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              مدونة النظافة والعناية<br />بمنزلك في جدة
+            </h1>
+
+            <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed opacity-95 md:text-xl">
+              نصائح عملية من خبراء التنظيف - تعلم أفضل الطرق للحفاظ على منزل نظيف وصحي طوال العام
+            </p>
+
+            <div className="mb-12 flex flex-wrap justify-center gap-4">
+              <Button asChild size="lg" className="gap-2 bg-white text-purple-600 hover:bg-gray-100 shadow-xl">
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="h-5 w-5" />
+                  احجز تنظيف احترافي
+                </a>
+              </Button>
+              <Button asChild size="lg" className="gap-2 border-2 border-white bg-transparent text-white hover:bg-white/10 shadow-xl">
+                <Link href="#articles">
+                  <Lightbulb className="h-5 w-5" />
+                  اقرأ النصائح
+                </Link>
+              </Button>
+            </div>
+
+            {/* Categories */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {["نصائح تنظيف", "إرشادات", "حلول منزلية", "صحة وسلامة", "مناسبات"].map((cat, idx) => (
+                <span key={idx} className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm">
+                  {cat}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="articles" className="bg-white py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-6xl">
             <div className="mb-12 text-center">
