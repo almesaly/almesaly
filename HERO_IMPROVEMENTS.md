@@ -343,3 +343,4 @@ const slides: SlideData[] = [...]
 **الحالة**: ✅ مكتمل ومرفوع على GitHub  
 **Commit**: `e57d3cf`
 
+
