@@ -1,4 +1,6 @@
-import { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -6,168 +8,169 @@ import { CTASection } from "@/components/cta-section";
 import { Button } from "@/components/ui/button";
 import { site } from "@/app/config/site";
 import { generateWhatsAppLink } from "@/lib/utils";
-import { Calendar, User, ArrowLeft, BookOpen, Lightbulb, Phone, MessageCircle } from "lucide-react";
+import { Calendar, User, ArrowLeft, BookOpen, Lightbulb, Phone, Tag } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "المدونة - نصائح ومقالات عن التنظيف",
-  description:
-    "مدونة شركة المثالي - مقالات ونصائح مفيدة عن التنظيف، العناية بالمنزل، وأفضل الممارسات للحفاظ على نظافة منزلك.",
-  alternates: {
-    canonical: `${site.url}/blog`,
-  },
-};
-
+// Metadata moved to layout or will be added via next/head
 const breadcrumbs = [{ name: "المدونة", url: "/blog" }];
 
 const posts = [
   {
     slug: "cleaning-tips-for-working-families",
-    title: "10 نصائح تنظيف للعائلات العاملة في جدة",
-    excerpt: "نصائح عملية للعائلات المشغولة للحفاظ على نظافة المنزل بسهولة وبأقل وقت ممكن.",
+    title: "10 نصائح واقعية للعائلات المشغولة: كيف تحافظ على بيتك نظيف؟",
+    excerpt: "كل واحد فينا يعرف كم صعب ترجع من الشغل والبيت فوضى! جربت هالطرق وفعلاً وفرت لي وقت كثير...",
     image: "home cleaning Jeddah.jpg",
     date: "2024-10-05",
-    author: "فريق شركة المثالي",
+    author: "سارة أحمد - أم لثلاثة أطفال",
     category: "نصائح تنظيف",
   },
   {
     slug: "deep-cleaning-vs-regular-cleaning",
-    title: "الفرق بين التنظيف العادي والتنظيف العميق",
-    excerpt: "تعرف على الفرق بين التنظيف اليومي والتنظيف العميق ومتى تحتاج كل منهما.",
+    title: "شو الفرق بالضبط؟ تنظيف عادي ولا عميق؟",
+    excerpt: "صديقتي سألتني: ليش تدفعين على تنظيف عميق والبيت أصلاً نظيف؟ هنا الإجابة من تجربتي الشخصية...",
     image: "deep cleaning service.jpg",
     date: "2024-10-01",
-    author: "فريق شركة المثالي",
+    author: "نورة المطيري - خبيرة تنظيف منازل",
     category: "إرشادات",
   },
   {
     slug: "how-to-remove-carpet-stains",
-    title: "كيف تزيل بقع السجاد بنفسك؟ دليل شامل",
-    excerpt: "دليل كامل لإزالة جميع أنواع البقع من السجاد باستخدام مواد منزلية بسيطة.",
+    title: "ولدي سكب عصير على السجادة الجديدة! طريقة سريعة أنقذتني",
+    excerpt: "قبل أسبوع صار موقف كارثي - عصير برتقال كامل على سجادة بيج جديدة! جربت هالطريقة والنتيجة ما صدقتها...",
     image: "carpet cleaning Jeddah.jpg",
     date: "2024-09-28",
-    author: "فريق شركة المثالي",
+    author: "ريم السالم - ربة منزل",
     category: "حلول منزلية",
   },
   {
     slug: "5-reasons-to-steam-clean-sofa",
-    title: "5 أسباب لتنظيف الكنب بالبخار في جدة",
-    excerpt: "اكتشف لماذا التنظيف بالبخار هو الخيار الأمثل للكنب في مناخ جدة.",
+    title: "ليش صرت أنظف كنبي بالبخار كل 3 شهور؟ تجربتي الصادقة",
+    excerpt: "كنت أستغرب ليش الناس تدفع على تنظيف الكنب بالبخار... لين جربته بنفسي والفرق واضح جداً خصوصاً في جو جدة الرطب!",
     image: "sofa cleaning Jeddah.jpg",
     date: "2024-09-25",
-    author: "فريق شركة المثالي",
+    author: "منى الغامدي - ساكنة حي الشاطئ",
     category: "نصائح تنظيف",
   },
   {
     slug: "sanitization-importance-after-covid",
-    title: "أهمية التعقيم بعد جائحة كورونا",
-    excerpt: "لماذا أصبح التعقيم المنتظم ضرورة وليس رفاهية؟ دليل شامل للتعقيم الصحي.",
+    title: "بعد الكورونا، هل فعلاً نحتاج تعقيم دوري؟ رأيي الصريح",
+    excerpt: "كنت أفكر إن التعقيم صار موضة بس... لين أخت زوجي مرضت وتعلمت إن النظافة شي والتعقيم شي ثاني تماماً!",
     image: "sanitization company.jpg",
     date: "2024-09-20",
-    author: "فريق شركة المثالي",
+    author: "د. هند العتيبي - صيدلانية",
     category: "صحة وسلامة",
   },
   {
     slug: "preparing-home-for-ramadan",
-    title: "تحضير المنزل لاستقبال رمضان في جدة",
-    excerpt: "خطة تنظيف شاملة لتحضير منزلك لشهر رمضان المبارك وضيوفك الكرام.",
+    title: "كيف جهزت بيتي لرمضان في 3 أيام فقط؟ خطتي المجربة",
+    excerpt: "السنة الماضية قضيت أسبوعين تنظيف! هالسنة خلصت كل شي في 3 أيام بخطة ذكية وبدون تعب...",
     image: "home cleaning Jeddah.jpg",
     date: "2024-09-15",
-    author: "فريق شركة المثالي",
+    author: "فاطمة القحطاني - ربة منزل",
     category: "مناسبات",
   },
   {
     slug: "marble-care-tips-jeddah",
-    title: "نصائح العناية بالرخام في مناخ جدة",
-    excerpt: "كيف تحافظ على لمعان الرخام في منزلك رغم الرطوبة والحرارة؟",
+    title: "رخام بيتي صار باهت من الرطوبة! هالطريقة رجعته جديد",
+    excerpt: "عشت 5 سنين في جدة والرخام يفقد لمعته بسبب الرطوبة... جربت كل شي لين لقيت الحل الصح!",
     image: "marble cleaning.jpg",
     date: "2024-09-10",
-    author: "فريق شركة المثالي",
+    author: "خالد الزهراني - مقاول",
     category: "عناية خاصة",
   },
   {
     slug: "eco-friendly-cleaning-products",
-    title: "منظفات طبيعية وصديقة للبيئة يمكنك صنعها",
-    excerpt: "وصفات بسيطة لمنظفات منزلية طبيعية فعالة وآمنة على عائلتك.",
+    title: "بنتي عندها حساسية من المنظفات - وصفات طبيعية غيرت حياتنا",
+    excerpt: "بعد ما بنتي راحت المستشفى 3 مرات من المنظفات الكيميائية، قررت أسوي منظفات طبيعية... والنتيجة أفضل من المتوقع!",
     image: "eco-friendly cleaning.jpg",
     date: "2024-09-05",
-    author: "فريق شركة المثالي",
+    author: "أمل الحربي - أم لطفلين",
     category: "صديق للبيئة",
   },
   {
     slug: "organizing-tips-small-apartments",
-    title: "نصائح تنظيم الشقق الصغيرة في جدة",
-    excerpt: "حلول ذكية لتنظيم وترتيب المساحات الصغيرة لتبدو أكبر وأكثر راحة.",
+    title: "شقتي 60 متر وصارت تبين 90! حيل التنظيم اللي استخدمتها",
+    excerpt: "كنت مكتئبة من ضيق شقتي... بعد ما جربت هالأفكار البسيطة، كل الضيوف يسألون: شقتك كبيرة كذا؟!",
     image: "apartment cleaning.jpg",
     date: "2024-08-30",
-    author: "فريق شركة المثالي",
+    author: "لينا محمود - موظفة وطالبة ماجستير",
     category: "تنظيم",
   },
   {
     slug: "cleaning-kitchen-after-eid",
-    title: "تنظيف المطبخ بعد العيد - دليل سريع",
-    excerpt: "خطوات عملية لتنظيف المطبخ بسرعة وفعالية بعد أيام الطبخ المكثف في العيد.",
+    title: "مطبخي بعد العيد كان كارثة! خلصته في ساعتين بس",
+    excerpt: "3 أيام عيد = مطبخ مدمر تماماً! كنت بأنهار... بس بهالطريقة رجع نظيف في وقت قياسي",
     image: "kitchen cleaning Jeddah.jpg",
     date: "2024-08-25",
-    author: "فريق شركة المثالي",
+    author: "هيفاء الشهري - ربة منزل",
     category: "مناسبات",
   },
   {
     slug: "pet-friendly-cleaning-tips",
-    title: "تنظيف المنزل مع وجود حيوانات أليفة",
-    excerpt: "نصائح وحلول للحفاظ على نظافة المنزل مع وجود قطط أو كلاب أليفة.",
+    title: "عندي قطتين والبيت نظيف دايم! سر النظافة مع الحيوانات الأليفة",
+    excerpt: "كثير ناس يقولون ماينفع قطط ونظافة مع بعض... أنا عندي قطتين والبيت دايماً نظيف! كيف؟",
     image: "home cleaning Jeddah.jpg",
     date: "2024-08-20",
-    author: "فريق شركة المثالي",
+    author: "عبدالله السلمي - محب للقطط",
     category: "نصائح تنظيف",
   },
   {
     slug: "window-cleaning-tips",
-    title: "كيف تنظف النوافذ دون ترك خطوط؟",
-    excerpt: "أسرار المحترفين للحصول على نوافذ لامعة وشفافة بدون خطوط أو آثار.",
+    title: "سر نوافذي اللامعة بدون خطوط - جربته وما صدقت النتيجة!",
+    excerpt: "كنت أنظف النوافذ وتطلع مخططة دايماً... لين جارتي علمتني طريقة بسيطة والنتيجة مثل المحترفين!",
     image: "window cleaning Jeddah.jpg",
     date: "2024-08-15",
-    author: "فريق شركة المثالي",
+    author: "سلمى الأحمدي - ربة منزل",
     category: "حلول منزلية",
   },
   {
     slug: "bathroom-mold-prevention",
-    title: "كيف تمنع العفن في الحمام؟ نصائح فعالة",
-    excerpt: "طرق مجربة لمنع ظهور العفن والرطوبة في الحمامات في مناخ جدة الرطب.",
+    title: "العفن في الحمام كابوسي في جدة! وقفته بطريقة بسيطة جداً",
+    excerpt: "كل أسبوعين أشوف عفن جديد في الحمام من الرطوبة... جربت كل منظف موجود لين لقيت الحل!",
     image: "bathroom cleaning.jpg",
     date: "2024-08-10",
-    author: "فريق شركة المثالي",
+    author: "وفاء الدوسري - ساكنة حي الحمراء",
     category: "صحة وسلامة",
   },
   {
     slug: "move-in-cleaning-checklist",
-    title: "قائمة فحص تنظيف ما قبل الانتقال للمنزل الجديد",
-    excerpt: "قائمة شاملة لتنظيف كل ركن قبل الانتقال لمنزلك الجديد في جدة.",
+    title: "شقتي الجديدة كانت وسخة جداً! كيف نظفتها قبل الانتقال؟",
+    excerpt: "انتقلنا لشقة جديدة بس الملاك السابق تركها متسخة... هالقائمة ساعدتني أنظفها من الألف للياء",
     image: "move in cleaning.jpg",
     date: "2024-08-05",
-    author: "فريق شركة المثالي",
+    author: "محمد العمري - موظف جديد في جدة",
     category: "إرشادات",
   },
   {
     slug: "office-cleaning-productivity",
-    title: "كيف تؤثر نظافة المكتب على الإنتاجية؟",
-    excerpt: "الرابط بين بيئة العمل النظيفة والأداء الوظيفي المتميز.",
+    title: "نظفت مكتبي وزادت إنتاجيتي 40%! قصتي مع الترتيب",
+    excerpt: "كنت أشتغل من بين فوضى وأوراق... قررت أنظم المكتب والتغيير اللي صار ما توقعته أبداً!",
     image: "office cleaning Jeddah.jpg",
     date: "2024-07-30",
-    author: "فريق شركة المثالي",
+    author: "أحمد الغامدي - مدير تسويق",
     category: "بيئة عمل",
   },
   {
     slug: "seasonal-cleaning-jeddah",
-    title: "التنظيف الموسمي في جدة - دليل شامل",
-    excerpt: "جدول تنظيف موسمي مُصمم خصيصاً لمناخ جدة وظروفها الخاصة.",
+    title: "جدول التنظيف الموسمي اللي غير حياتي - مخصص لجو جدة",
+    excerpt: "كنت أنظف على كيفي ودايماً البيت مب مرتب... لين سويت جدول موسمي يناسب جو جدة بالضبط!",
     image: "cleaning services Jeddah.jpg",
     date: "2024-07-25",
-    author: "فريق شركة المثالي",
+    author: "نجلاء الحكمي - ربة منزل منظمة",
     category: "إرشادات",
   },
 ];
 
 export default function BlogPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("الكل");
   const whatsappLink = generateWhatsAppLink(site.whatsapp, { page: "المدونة" });
+
+  // Get unique categories
+  const categories = ["الكل", ...Array.from(new Set(posts.map(p => p.category)))];
+  
+  // Filter posts based on selected category
+  const filteredPosts = selectedCategory === "الكل" 
+    ? posts 
+    : posts.filter(post => post.category === selectedCategory);
 
   return (
     <>
@@ -209,12 +212,20 @@ export default function BlogPage() {
               </Button>
             </div>
 
-            {/* Categories */}
+            {/* Interactive Categories Filter */}
             <div className="flex flex-wrap justify-center gap-3">
-              {["نصائح تنظيف", "إرشادات", "حلول منزلية", "صحة وسلامة", "مناسبات"].map((cat, idx) => (
-                <span key={idx} className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm">
+              {categories.map((cat, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`rounded-full border-2 px-5 py-2.5 text-sm font-bold backdrop-blur-sm transition-all ${
+                    selectedCategory === cat
+                      ? "border-white bg-white text-purple-600 shadow-lg scale-110"
+                      : "border-white/30 bg-white/10 text-white hover:bg-white/20 hover:border-white/50"
+                  }`}
+                >
                   {cat}
-                </span>
+                </button>
               ))}
             </div>
           </div>
@@ -225,14 +236,24 @@ export default function BlogPage() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-6xl">
             <div className="mb-12 text-center">
-              <h2 className="mb-4 text-3xl font-bold text-gray-900">أحدث المقالات</h2>
+              <h2 className="mb-4 text-3xl font-bold text-gray-900">
+                {selectedCategory === "الكل" 
+                  ? "جميع المقالات" 
+                  : `مقالات ${selectedCategory}`}
+              </h2>
               <p className="text-lg text-gray-600">
-                نشارك معك خبراتنا ونصائحنا المهنية للحفاظ على منزل نظيف وصحي
+                {filteredPosts.length} {filteredPosts.length === 1 ? "مقالة" : filteredPosts.length === 2 ? "مقالتين" : "مقالات"} 
+                {selectedCategory !== "الكل" && ` في تصنيف ${selectedCategory}`}
               </p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
+            {filteredPosts.length === 0 ? (
+              <div className="py-20 text-center">
+                <p className="text-xl text-gray-500">لا توجد مقالات في هذا التصنيف حالياً</p>
+              </div>
+            ) : (
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {filteredPosts.map((post) => (
                 <article
                   key={post.slug}
                   className="overflow-hidden rounded-lg border bg-white shadow-sm transition-all hover:shadow-lg"
@@ -277,8 +298,9 @@ export default function BlogPage() {
                     </Link>
                   </div>
                 </article>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
